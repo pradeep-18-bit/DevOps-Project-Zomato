@@ -121,7 +121,7 @@ pipeline {
     agent any
     tools {
         jdk 'jdk17'
-        nodejs 'node23'
+        nodejs 'node24'
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
@@ -177,8 +177,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker') {
-                        sh "docker tag zomato kastrov/zomato:latest "
-                        sh "docker push kastrov/zomato:latest "
+                        sh "docker tag zomato pradeep065/zomato:latest "
+                        sh "docker push pradeep065/zomato:latest "
                     }
                 }
             }
@@ -187,16 +187,16 @@ pipeline {
             steps {
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                       sh 'docker-scout quickview kastrov/zomato:latest'
-                       sh 'docker-scout cves kastrov/zomato:latest'
-                       sh 'docker-scout recommendations kastrov/zomato:latest'
+                       sh 'docker-scout quickview pradeep065/zomato:latest'
+                       sh 'docker-scout cves pradeep065/zomato:latest'
+                       sh 'docker-scout recommendations pradeep065/zomato:latest'
                    }
                 }
             }
         }
         stage ("Deploy to Container") {
             steps {
-                sh 'docker run -d --name zomato -p 3000:3000 kastrov/zomato:latest'
+                sh 'docker run -d --name zomato -p 3000:3000 pradeep065/zomato:latest'
             }
         }
     }
@@ -219,7 +219,7 @@ pipeline {
                 </body>
                 </html>
             """,
-            to: 'kastrokiran@gmail.com',
+            to: 'akurathipradeep14@gmail.com',
             mimeType: 'text/html',
             attachmentsPattern: 'trivy.txt'
         }
@@ -713,4 +713,5 @@ Kind Request:
 Once after you have successfully deployed the App, kindly share your experience on LinkedIn by Tagging me and also provide the YouTube link of this project in your post, as it helps others to access the video quickly. 
 ========================================================================================================
 												HAPPY LEARNING
+
 
